@@ -1,19 +1,28 @@
 ---
 layout: page
-title: Welcome to Lagrange!
-permalink: /about
+title: Hi there! I’m Layale 
 ---
 
-Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.
+I'm **Sofrware Engineer** and and here I want to share all the stuff related to me..
 
-### Getting Started
+SWE
+-------
+I'm from Kazakhtan, based in Almaty and working for [EPAM Systems](https://epam.com/).
+Graduated from [Kazakh-British Technical University]("https://kbtu.edu.kz/en/) with BS degree in Software Engineering (2021). 
 
-[Getting Started]({{ site.github.url }}{% post_url 2015-10-10-getting-started %}): getting started with installing Lagrange, whether you are completely new to using Jekyll, or simply just migrating to a new Jekyll theme.
+ I've been developing for backend for over 3 years now (using Python most of the time). I’m keen on problem solving using algorithms and data structures.
+ And I'm an enthusiast about open source and knowledge sharing within the community. 
 
-### Example Content
+Projects I have worked on
+-------------------------
 
-[Text and Formatting]({{ site.github.url }}{% post_url 2014-01-01-text-formatting-examples %})
+ <p>
+<a href="https://www.epam.com/">
+    <img src="assets/img/logo.png" width="150" 
+            alt="EPAM" title="Click to enlarge"></a>
+    
+<a href="https://chocofood.kz/ru/18">
+    <img src="assets/img/image-for-link-1200x630.jpg" width="150" 
+            alt="Chocofood" title="Click to enlarge"></a>
+</p>
 
-### Questions?
-
-This theme is completely free and open source software. You may use it however you want, as it is distributed under the [MIT License](http://choosealicense.com/licenses/mit/). If you are having any problems, any questions or suggestions, feel free to [tweet at me](https://twitter.com/intent/tweet?text=My%question%about%Lagrange%is:%&amp;via=paululele), or [file a GitHub issue](https://github.com/lenpaul/lagrange/issues/new).
