@@ -1,6 +1,7 @@
 ---
 layout: page
-title: Hi there! I’m Layale 
+title: Welcome to Lagrange!
+permalink: /about
 ---
 
 I'm **Sofrware Engineer** and and here I want to share all the stuff related to me..
