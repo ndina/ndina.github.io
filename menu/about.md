@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Welcome to Lagrange!
+title: Hi there, I am Dina.
 permalink: /about
 ---
 
