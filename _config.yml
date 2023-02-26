@@ -1,16 +1,16 @@
-# Site Build Settings
+Site Build Settings
 
-# Jekyll-paginate-v2 configuration
-#  pagination:
-#   enabled: true
-#   per_page: 5
-#   permalink: '/page/:num/'
-#   title: ':title - page :num of :max'
-#   limit: 0
-#   sort_field: 'date'
-#   sort_reverse: true
+Jekyll-paginate-v2 configuration
+ pagination:
+  enabled: true
+  per_page: 5
+  permalink: '/page/:num/'
+  title: ':title - page :num of :max'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
 
-# jekyll-paginate configuration
+jekyll-paginate configuration
 paginate:            5
 
 # Build settings
@@ -29,4 +29,5 @@ author:              'Dina Nassyrkhan'
 #  path: rss-feed.xml
 
 remote_theme: "jeffreytse/jekyll-theme-yat"
+style: dark
 
