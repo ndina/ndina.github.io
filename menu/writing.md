@@ -1,5 +1,5 @@
 ---
-layout: archieve
+layout: archive
 title: Writing
 permalink: /writing
 ---
