@@ -29,5 +29,3 @@ author:              'Dina Nassyrkhan'
 #  path: rss-feed.xml
 
 remote_theme: "jeffreytse/jekyll-theme-yat"
-style: dark
-
