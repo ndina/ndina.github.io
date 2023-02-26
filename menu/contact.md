@@ -4,4 +4,4 @@ title: Contact
 permalink: /contact
 ---
 
-Questions? Feedback? Or just a chat? You can find me on on Telegram by username @dina2505.
+If you are having any problems, any questions or suggestions, feel free to mail me at dbom12360@gmail.com
