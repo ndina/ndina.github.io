@@ -4,7 +4,7 @@ title: Hi there, I am Dina.
 permalink: /about
 ---
 
-I'm **Sofrware Engineer** and and here I want to share all the stuff related to me..
+I'm **Sofrware Engineer** and here I want to share all the stuff related to me..
 
 SWE
 -------
