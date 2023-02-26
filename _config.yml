@@ -10,7 +10,7 @@
 #   sort_field: 'date'
 #   sort_reverse: true
 
-jekyll-paginate configuration
+# jekyll-paginate configuration
 paginate:            5
 
 # Build settings
@@ -27,5 +27,3 @@ author:              'Dina Nassyrkhan'
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
 #  path: rss-feed.xml
-
-remote_theme: "jeffreytse/jekyll-theme-yat"
