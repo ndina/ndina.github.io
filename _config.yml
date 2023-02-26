@@ -28,3 +28,5 @@ author:              'Dina Nassyrkhan'
 #feed:
 #  path: rss-feed.xml
 
+remote_theme: "jeffreytse/jekyll-theme-yat"
+
