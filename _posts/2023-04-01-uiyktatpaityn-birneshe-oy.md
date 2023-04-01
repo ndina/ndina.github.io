@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ұйықтатпайтын бірнеше сұрақ.."
+title: "Ұйықтатпайтын ойлар"
 author: "Dina"
 # categories: journal
 tags: [documentation,sample]
