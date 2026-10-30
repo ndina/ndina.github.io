@@ -1,4 +1,370 @@
----
-layout: main
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dina Nassyrkhan</title>
+<meta name="description" content="Dina Nassyrkhan, software engineer in Munich. C++, distributed systems, performance.">
+<meta name="theme-color" content="#0B1020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0B1020;        /* page background */
+    --ink: #121A30;          /* cards, raised surfaces */
+    --line: #232E4D;
+    --text: #DCE1F2;
+    --slate: #8C95B4;
+    --lilac: #B9A3FF;        /* main accent */
+    --lilac-tint: rgba(185,163,255,0.1);
+    --peach: #FFB89E;        /* second accent, used sparingly */
+    --sans: "Jost", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--night); color: var(--slate);
+    font: 400 18px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--lilac); color: var(--night); }
+  a { color: var(--lilac); text-decoration: none; }
+  :focus-visible { outline: 2px dashed var(--lilac); outline-offset: 4px; }
+
+  /* nav */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 20; height: 68px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 5vw;
+    background: rgba(11,16,32,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform .3s ease;
+  }
+  .nav.hide { transform: translateY(-100%); }
+  .logo { font: 500 22px var(--sans); color: var(--text); letter-spacing: .02em; }
+  .logo span { color: var(--lilac); }
+  .nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
+  .nav ul a { color: var(--slate); font-size: 17px; transition: color .2s; }
+  .nav ul a:hover { color: var(--lilac); }
+  .nav ul a b { color: var(--lilac); font-weight: 400; margin-right: 2px; }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 0 6vw; }
+
+  /* intro */
+  #intro { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 6vw; padding-top: 68px; }
+  #intro > div { max-width: 540px; }
+  .photo { position: relative; flex: none; width: min(320px, 32vw); aspect-ratio: 4 / 5; }
+  .photo .frame { position: absolute; inset: 0; border-radius: 14px; overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* viewfinder corners */
+  .photo i { position: absolute; width: 22px; height: 22px; border: 0 solid var(--lilac); }
+  .photo i:nth-of-type(1) { top: -12px; left: -12px; border-top-width: 2px; border-left-width: 2px; }
+  .photo i:nth-of-type(2) { top: -12px; right: -12px; border-top-width: 2px; border-right-width: 2px; }
+  .photo i:nth-of-type(3) { bottom: -12px; left: -12px; border-bottom-width: 2px; border-left-width: 2px; }
+  .photo i:nth-of-type(4) { bottom: -12px; right: -12px; border-bottom-width: 2px; border-right-width: 2px; }
+  .photo .tag { position: absolute; left: -12px; bottom: -40px; font: 400 12px var(--mono); color: var(--slate); }
+  .hello { font: 300 clamp(44px, 6.4vw, 76px)/1.05 var(--sans); color: var(--text); margin: 0 0 22px; }
+  .hello .name { color: var(--lilac); font-weight: 400; }
+  .caret { color: var(--lilac); font-weight: 300; animation: blink 1s step-end infinite; margin-left: 2px; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .intro-desc { max-width: 30em; font-size: 20px; line-height: 1.55; margin: 0 0 32px; }
+  .intro-desc em { font-style: normal; color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px;
+    border: 1px solid var(--lilac); border-radius: 6px; color: var(--lilac); font-size: 18px;
+    transition: background .2s;
+  }
+  .btn:hover { background: var(--lilac-tint); }
+  .btn svg { width: 18px; height: 18px; }
+
+  .socials { display: flex; justify-content: center; gap: 28px; }
+  .socials a { color: var(--slate); transition: color .2s, transform .2s; display: block; }
+  .socials a:hover { color: var(--lilac); transform: translateY(-3px); }
+  .socials svg { width: 30px; height: 30px; display: block; }
+
+  /* sections */
+  section.block { padding: 110px 0 0; }
+  .sec-title { font: 300 38px/1.2 var(--sans); color: var(--text); margin: 0 0 40px; display: flex; align-items: center; gap: 18px; }
+  .sec-title::after { content: ""; flex: 1; max-width: 300px; height: 1px; background: var(--line); }
+  .sec-title b { color: var(--lilac); font-weight: 300; margin-right: 6px; }
+
+  /* about */
+  .about { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 56px; }
+  .about p { margin: 0 0 16px; }
+  .about p em { font-style: normal; color: var(--text); }
+  .tech { list-style: none; padding: 0; margin: 18px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 20px; font: 400 14px var(--mono); }
+  .tech li::before { content: "▹"; color: var(--lilac); margin-right: 10px; }
+  .now { background: var(--ink); border-radius: 10px; padding: 24px 26px; align-self: start; }
+  .now h3 { font: 400 15px var(--mono); color: var(--peach); margin: 0 0 12px; }
+  .now p { margin: 0 0 10px; font-size: 17px; }
+  .now p:last-child { margin: 0; }
+
+  /* experience tabs */
+  .jobs { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 36px; min-height: 360px; }
+  .tabs { display: flex; flex-direction: column; border-left: 2px solid var(--line); position: relative; }
+  .tabs button {
+    background: none; border: 0; text-align: left; padding: 12px 20px; font: 400 16px var(--sans); color: var(--slate);
+    cursor: pointer; transition: color .2s, background .2s; white-space: nowrap;
+  }
+  .tabs button:hover { color: var(--lilac); background: var(--lilac-tint); }
+  .tabs button[aria-selected="true"] { color: var(--lilac); }
+  .tabs .marker { position: absolute; left: -2px; top: 0; width: 2px; height: 48px; background: var(--lilac); transition: transform .3s cubic-bezier(.6,.05,.3,1); }
+  .job h3 { font: 400 24px/1.3 var(--sans); color: var(--text); margin: 0; }
+  .job h3 a { color: var(--lilac); }
+  .job .sub { font-size: 16px; color: var(--slate); margin-top: 2px; }
+  .job .when { font: 400 14px var(--mono); margin: 6px 0 22px; }
+  .job ul { list-style: none; padding: 0; margin: 0; }
+  .job li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 17px; }
+  .job li::before { content: "▹"; position: absolute; left: 0; color: var(--lilac); }
+  .job .stack { font: 400 13px var(--mono); color: var(--slate); margin-top: 20px; opacity: .8; }
+  .job { animation: swap .35s ease; }
+  @keyframes swap { from { opacity: 0; transform: translateY(6px); } }
+
+  .edu { margin-top: 56px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .edu div { border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; }
+  .edu h4 { margin: 0; font: 400 19px var(--sans); color: var(--text); }
+  .edu p { margin: 4px 0 0; font-size: 16px; }
+
+  /* projects */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; list-style: none; padding: 0; margin: 0; }
+  .card {
+    background: var(--ink); border-radius: 10px; padding: 28px 28px 24px; display: flex; flex-direction: column;
+    transition: transform .25s ease;
+  }
+  .card:hover { transform: translateY(-6px); }
+  .card .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; color: var(--lilac); }
+  .card .top svg { width: 38px; height: 38px; }
+  .card .top a svg { width: 20px; height: 20px; color: var(--slate); }
+  .card .top a:hover svg { color: var(--lilac); }
+  .card h3 { font: 400 23px/1.25 var(--sans); color: var(--text); margin: 0 0 10px; }
+  .card p { margin: 0 0 20px; font-size: 17px; flex: 1; }
+  .card .stack { font: 400 13px var(--mono); }
+  .card .badge { align-self: flex-start; font: 400 12px var(--mono); color: var(--peach); border: 1px solid rgba(255,184,158,.35); border-radius: 20px; padding: 3px 10px; margin-bottom: 16px; }
+
+  /* contact */
+  #contact { text-align: center; padding-bottom: 40px; }
+  #contact .sec-title { justify-content: center; }
+  #contact .sec-title::after { display: none; }
+  #contact p { max-width: 30em; margin: 0 auto 32px; }
+
+  footer { text-align: center; font: 400 13px var(--mono); padding: 70px 0 32px; opacity: .7; }
+
+  /* reveal once, as each section enters */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    #intro { flex-direction: column-reverse; justify-content: center; align-items: flex-start; gap: 56px; padding-top: 110px; }
+    .photo { width: 180px; }
+    .about, .jobs { grid-template-columns: 1fr; }
+    .tabs { flex-direction: row; overflow-x: auto; border-left: 0; border-bottom: 2px solid var(--line); }
+    .tabs .marker { display: none; }
+    .tabs button[aria-selected="true"] { box-shadow: inset 0 -2px 0 var(--lilac); }
+    .edu { grid-template-columns: 1fr; }
+    .nav ul { gap: 16px; }
+    .nav ul li.opt { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .caret { animation: none; }
+    .job { animation: none; }
+  }
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="logo" href="#intro">dina<span>.</span></a>
+  <ul>
+    <li class="opt"><a href="#about"><b>/</b>about</a></li>
+    <li><a href="#experience"><b>/</b>experience</a></li>
+    <li><a href="#projects"><b>/</b>projects</a></li>
+    <li class="opt"><a href="#contact"><b>/</b>contact</a></li>
+  </ul>
+</header>
+
+<main>
+  <section id="intro">
+        <div>
+      <h1 class="hello">hello, i'm <span class="name" id="typed" aria-label="dina"></span>.<span class="caret" aria-hidden="true">|</span></h1>
+      <p class="intro-desc">Software engineer in Munich. I write <em>modern C++</em> for systems that have to be fast and correct, from query engines and profilers to the 3DEXPERIENCE platform. Now a data intern at Retorio and finishing my master's at TUM.</p>
+      <a class="btn" href="mailto:dinanassyrkhan@gmail.com">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5 8-5V7H4Zm16 2.7-7.5 4.7a1 1 0 0 1-1 0L4 9.7V17h16V9.7Z"/></svg>
+        Say hi
+      </a>
+    </div>
+    <figure class="photo" style="margin:0">
+      <div class="frame"><img src="photo.jpg" alt="Dina Nassyrkhan" width="800" height="1000"></div>
+      <i></i><i></i><i></i><i></i>
+      <figcaption class="tag">somewhere in the alps</figcaption>
+    </figure>
+  </section>
+
+  <section class="block reveal" id="about">
+    <h2 class="sec-title"><span><b>/</b>about me</span></h2>
+    <div class="about">
+      <div>
+        <p>I like the layer of software most people never see: <em>query engines, profilers, memory layouts</em>, the code that decides whether everything above it is fast.</p>
+        <p>I've refactored parts of Amazon Redshift's C++ query engine, built telemetry features for Intel VTune Profiler, and spent two and a half years running backend services on AWS at EPAM. At Dassault Systèmes I designed data structures for huge graph-like CAD models, and now I'm working with data at Retorio.</p>
+        <p>Here are some technologies I've been working with:</p>
+        <ul class="tech" id="tech"></ul>
+      </div>
+      <aside class="now">
+        <h3>right now</h3>
+        <p>Data intern at Retorio in Munich.</p>
+        <p>Finishing my M.Sc. Informatics at TUM.</p>
+        <p>Building a free volunteer tutoring platform for kids in Kazakhstan.</p>
+        <p>Open to full-time SWE roles in Munich.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="block reveal" id="experience">
+    <h2 class="sec-title"><span><b>/</b>experience</span></h2>
+    <div class="jobs">
+      <div class="tabs" role="tablist" id="tabs"><span class="marker" id="marker"></span></div>
+      <div id="job" role="tabpanel"></div>
+    </div>
+    <div class="edu" id="edu"></div>
+  </section>
+
+  <section class="block reveal" id="projects">
+    <h2 class="sec-title"><span><b>/</b>projects</span></h2>
+    <ul class="grid" id="grid"></ul>
+  </section>
+
+  <section class="block reveal" id="contact">
+    <h2 class="sec-title"><span><b>/</b>say hi</span></h2>
+    <p>I'm looking for my next full-time role in Munich: backend, infrastructure or performance work. My inbox is always open.</p>
+    <div class="socials" data-socials></div>
+  </section>
+
+  <footer>built by dina, 2026</footer>
+</main>
+
+<script>
+/* ============================================================
+   EDIT YOUR CONTENT HERE
+   ============================================================ */
+const links = {
+  github: "https://github.com/ndina",
+  linkedin: "https://www.linkedin.com/in/dina-nassyrkhan/",
+};
+
+const tech = ["C++", "Python", "TypeScript", "SQL", "AWS", "Docker", "Kubernetes", "Linux / GDB"];
+
+const jobs = [
+  { tab: "Retorio", title: "Data Intern", company: "Retorio", url: "https://www.retorio.com",
+    when: "Sep 2026 – present · Munich", points: [
+      "Data intern, working across data and engineering tasks.",
+      // TODO: add 2–3 concrete bullets once you've settled in (what data, what tools, what you built)
+    ], stack: "data · Python" },
+  { tab: "Dassault Systèmes", title: "Software Engineer", sub: "Part-time", company: "Dassault Systèmes", url: "https://www.3ds.com",
+    when: "Jul 2025 – Jul 2026 · Munich", points: [
+      "Developed high-performance backend services for the 3DEXPERIENCE platform in modern C++.",
+      "Designed data structures and memory management strategies for complex graph-like product models used in CAD/PLM workflows.",
+      "Worked on scalable systems that analyse and transform large structured datasets, with a focus on performance and reliability.",
+    ], stack: "C++ · data structures · memory management" },
+  { tab: "AWS Redshift", title: "Software Engineer Intern", company: "Amazon Web Services", url: "https://aws.amazon.com/redshift/",
+    when: "Sep 2024 – Mar 2025 · Berlin", points: [
+      "Refactored components of Redshift's C++ query engine: complex state management, correctness and debugging of large-scale distributed data processing.",
+      "Integrated the immer library to bring functional programming patterns and fewer unintended state mutations to data pipelines.",
+      "Reworked the internal query parser and AST validation for deterministic state transitions and robust error recovery.",
+      "Investigated and fixed race conditions in distributed processing components through debugging and systematic experiments.",
+    ], stack: "C++ · Python · SQL · distributed systems" },
+  { tab: "Intel", title: "Software Engineer Intern", company: "Intel", url: "https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html",
+    when: "Feb 2024 – Jul 2024 · Munich", points: [
+      "Developed and maintained components of Intel VTune Profiler, used for performance analysis of large-scale applications.",
+      "Debugged and resolved issues in performance data collection pipelines across Linux environments.",
+      "Implemented and tested profiling infrastructure features for GPU and system telemetry collection.",
+    ], stack: "C++ · Linux · profiling" },
+  { tab: "EPAM Systems", title: "Software Engineer", company: "EPAM Systems", url: "https://www.epam.com",
+    when: "Jun 2021 – Oct 2023 · Remote (Canada)", points: [
+      "Developed and operated backend services on AWS using Lambda, EC2 and SageMaker.",
+      "Implemented cross-account infrastructure features for scalable multi-tenant cloud deployments.",
+      "Improved system performance by refactoring legacy code paths and optimising resource usage.",
+    ], stack: "AWS · Python · cloud infrastructure" },
+];
+
+const education = [
+  { school: "Technical University of Munich", degree: "M.Sc. Informatics · algorithms, large-scale systems, ML foundations, quantum computing" },
+  { school: "Kazakh-British Technical University", degree: "B.Sc. Computer Science · Almaty" },
+];
+
+const projects = [
+  { name: "CoRe", badge: "bachelor's project, 2019",
+    desc: "A product review site in the spirit of irecommend.ru: browse categories and products, read other people's reviews, sign up and leave your own rated comment. Built with two classmates for a web development course at KBTU.",
+    stack: "Django REST Framework · Angular · Bootstrap", link: "https://github.com/ndina/CoRe-Online-recommendation-site" },
+];
+/* ============================ end of content ============================ */
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* typed name */
+(() => {
+  const el = document.getElementById("typed"), word = "dina";
+  if (reduce) { el.textContent = word; return; }
+  let i = 0; const t = setInterval(() => { el.textContent = word.slice(0, ++i); if (i === word.length) clearInterval(t); }, 170);
+})();
+
+/* contact icons (an empty link is hidden) */
+const icons = {
+  email: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5 8-5V7H4Zm16 2.7-7.5 4.7a1 1 0 0 1-1 0L4 9.7V17h16V9.7Z"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>`,
+  linkedin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.3 18.3H5.7V9.8h2.6v8.5ZM7 8.6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm11.3 9.7h-2.6v-4.1c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.2h-2.6V9.8h2.5v1.2c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.6Z"/></svg>`,
+};
+const allLinks = { email: "mailto:dinanassyrkhan@gmail.com", ...links };
+document.querySelectorAll("[data-socials]").forEach(el => el.innerHTML =
+  Object.entries(allLinks).filter(([, u]) => u).map(([k, u]) =>
+    `<a href="${u}" aria-label="${k}" title="${k}"${k === "email" ? "" : ' target="_blank" rel="noopener"'}>${icons[k]}</a>`).join(""));
+
+/* about: tech list */
+document.getElementById("tech").innerHTML = tech.map(t => `<li>${t}</li>`).join("");
+
+/* experience tabs */
+const tabs = document.getElementById("tabs"), marker = document.getElementById("marker"), jobEl = document.getElementById("job");
+jobs.forEach((j, i) => {
+  const b = document.createElement("button");
+  b.role = "tab"; b.textContent = j.tab; b.setAttribute("aria-selected", i === 0);
+  b.addEventListener("click", () => show(i));
+  b.addEventListener("mouseenter", () => { if (current !== i) show(i); });
+  b.addEventListener("keydown", e => {
+    const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key]; if (!d) return;
+    e.preventDefault(); const n = (i + d + jobs.length) % jobs.length; tabs.querySelectorAll("button")[n].focus(); show(n);
+  });
+  tabs.appendChild(b);
+});
+let current = -1;
+function show(i) {
+  current = i;
+  const j = jobs[i];
+  tabs.querySelectorAll("button").forEach((b, k) => { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; });
+  marker.style.transform = `translateY(${i * 48}px)`;
+  jobEl.innerHTML = `<div class="job">
+    <h3>${j.title} <a href="${j.url}">@ ${j.company}</a></h3>
+    ${j.sub ? `<div class="sub">${j.sub}</div>` : ""}
+    <div class="when">${j.when}</div>
+    <ul>${j.points.map(p => `<li>${p}</li>`).join("")}</ul>
+    <div class="stack">${j.stack}</div></div>`;
+}
+show(0);
+document.getElementById("edu").innerHTML = education.map(e => `<div><h4>${e.school}</h4><p>${e.degree}</p></div>`).join("");
+
+/* projects */
+const folder = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4.2l2 2h8.8A1.5 1.5 0 0 1 21 9.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-11Z"/></svg>`;
+const ext = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
+document.getElementById("grid").innerHTML = projects.map(p => `
+  <li class="card">
+    <div class="top">${folder}${p.link ? `<a href="${p.link}" aria-label="Open ${p.name}">${ext}</a>` : ""}</div>
+    ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+    <h3>${p.name}</h3><p>${p.desc}</p><div class="stack">${p.stack}</div>
+  </li>`).join("");
+
+/* section reveal + hide nav on scroll down */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+let lastY = 0; const nav = document.getElementById("nav");
+addEventListener("scroll", () => { const y = scrollY; nav.classList.toggle("hide", y > lastY && y > 200); lastY = y; }, { passive: true });
+</script>
+</body>
+</html>
