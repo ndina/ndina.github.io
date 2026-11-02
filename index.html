@@ -126,6 +126,12 @@
   .edu h4 { margin: 0; font: 400 19px var(--sans); color: var(--text); }
   .edu p { margin: 4px 0 0; font-size: 16px; }
 
+  /* achievements */
+  .wins { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .wins li { display: grid; grid-template-columns: 26px minmax(0, 1fr); font-size: 17px; }
+  .wins li::before { content: "▹"; color: var(--lilac); }
+  .wins b { color: var(--text); font-weight: 400; }
+
   /* projects */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; list-style: none; padding: 0; margin: 0; }
   .card {
@@ -229,6 +235,11 @@
     <div class="edu" id="edu"></div>
   </section>
 
+  <section class="block reveal" id="achievements">
+    <h2 class="sec-title"><span><b>/</b>achievements</span></h2>
+    <ul class="wins" id="wins"></ul>
+  </section>
+
   <section class="block reveal" id="projects">
     <h2 class="sec-title"><span><b>/</b>projects</span></h2>
     <ul class="grid" id="grid"></ul>
@@ -292,6 +303,11 @@ const education = [
   { school: "Kazakh-British Technical University", degree: "B.Sc. Computer Science · Almaty" },
 ];
 
+const achievements = [
+  ["ACM ICPC", "Participant of the 1/4 final (Kazakhstan Subregional Contest)."],
+  ["Competitive programming", "Regional university contests (KBTU Open, IITU Open) and regular Codeforces rounds."],
+];
+
 const projects = [
   { name: "CoRe", badge: "bachelor's project, 2019",
     desc: "A product review site in the spirit of irecommend.ru: browse categories and products, read other people's reviews, sign up and leave your own rated comment. Built with two classmates for a web development course at KBTU.",
@@ -350,6 +366,9 @@ function show(i) {
 }
 show(0);
 document.getElementById("edu").innerHTML = education.map(e => `<div><h4>${e.school}</h4><p>${e.degree}</p></div>`).join("");
+
+/* achievements */
+document.getElementById("wins").innerHTML = achievements.map(([t, d]) => `<li><span><b>${t}</b>: ${d}</span></li>`).join("");
 
 /* projects */
 const folder = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4.2l2 2h8.8A1.5 1.5 0 0 1 21 9.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-11Z"/></svg>`;
